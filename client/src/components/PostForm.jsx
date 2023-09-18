@@ -30,6 +30,7 @@ const PostForm = () => {
 							language={language}
 							padding={20}
 							onChange={(e) => setCode(e.target.value)}
+							placeholder="Enter Code"
 							style={{
 								overflow: "scroll"
 							}}
@@ -37,10 +38,10 @@ const PostForm = () => {
 						<div>
 							<textarea
 								name="description"
-								className="bg-[#161B22] w-full text-lg shadow-md p-4 rounded-xl max-h-40"
-								onChange={(e) => setDescription(e.target.value)}>
-								{description}
-							</textarea>
+								className="textarea textarea-xs bg-[#161B22] w-full shadow-md  rounded-xl"
+								onChange={(e) => setDescription(e.target.value)}
+								defaultValue={description}
+								placeholder="Add a Description"></textarea>
 						</div>
 						<div className="flex justify-between items-center">
 							<select

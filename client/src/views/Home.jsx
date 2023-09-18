@@ -33,7 +33,7 @@ const Home = () => {
 
 	return (
 		<div className="h-screen max-w-7xl mx-auto px-8 flex flex-col-reverse sm:flex-row sm:gap-4 md:max-xl:px-14 xl:px-16 transition-all ease-in">
-			<Navigation />
+			<Navigation user={currentUser} />
 			<Feed />
 			<Users />
 		</div>

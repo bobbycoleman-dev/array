@@ -11,13 +11,15 @@ const Feed = () => {
 			</div>
 			<h2 className="text-2xl font-bold">Home</h2>
 			<PostForm />
-			{mockData.map((post) => (
-				<PostCard
-					code={post.code}
-					description={post.description}
-					language={post.language}
-					avatar={post.avatar}
-				/>
+			{mockData.map((post, idx) => (
+				<section key={idx}>
+					<PostCard
+						code={post.code}
+						description={post.description}
+						language={post.language}
+						avatar={post.avatar}
+					/>
+				</section>
 			))}
 		</div>
 	);

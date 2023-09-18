@@ -1,6 +1,7 @@
 import { HomeIcon, UserCircleIcon, MagnifyingGlassIcon, ArrowSmallRightIcon } from "@heroicons/react/24/solid";
 
-const Navigation = () => {
+const Navigation = (props) => {
+	const { user } = props;
 	return (
 		<div className="w-full min-h-16 py-4 shadow-2xl sm:border-x sm:border-info  sm:order-first sm:max-lg:w-20 lg:w-1/2 ">
 			<div className="h-full sm:flex sm:flex-col sm:justify-between ">
@@ -35,7 +36,7 @@ const Navigation = () => {
 				<div className="hidden mx-auto sm:block lg:ms-4 lg:flex lg:gap-4">
 					<img src="https://i.pravatar.cc/50" alt="" className="rounded-full" />
 					<div className="hidden lg:block">
-						<p>Display Name</p>
+						<p>{user.email}</p>
 						<p>@username</p>
 					</div>
 				</div>
