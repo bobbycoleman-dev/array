@@ -20,5 +20,17 @@ export const mockData = [
 		description: "A function that takes in two parameters and subtracts them",
 		language: "swift",
 		avatar: "https://i.pravatar.cc/50"
+	},
+	{
+		code: "func subtract(a, b) {\n\treturn a - b\n}",
+		description: "A function that takes in two parameters and subtracts them",
+		language: "swift",
+		avatar: "https://i.pravatar.cc/50"
+	},
+	{
+		code: "func subtract(a, b) {\n\treturn a - b\n}",
+		description: "A function that takes in two parameters and subtracts them",
+		language: "swift",
+		avatar: "https://i.pravatar.cc/50"
 	}
 ];

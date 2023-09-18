@@ -1,6 +1,6 @@
 const Users = () => {
 	return (
-		<div className="w-full min-h-full hidden border-x border-info py-4 px-4 shadow-2xl lg:block lg:w-1/2 lg:order-last">
+		<div className="w-full min-h-full hidden border-x border-info py-4 px-4 shadow-2xl lg:block lg:w-96 lg:order-last">
 			<div>
 				<input
 					type="search"

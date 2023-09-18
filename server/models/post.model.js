@@ -15,7 +15,9 @@ const PostSchema = new mongoose.Schema({
 		minlength: [3, "Description must be at least 3 characters."],
 		maxlength: [280, "Description cannot be more than 280 characters."]
 	},
-	poster: UserSchema,
+	poster: {
+		type: String
+	},
 	comments: [
 		{
 			comment: {
@@ -23,11 +25,14 @@ const PostSchema = new mongoose.Schema({
 				minlength: [3, "Description must be at least 3 characters."],
 				maxlength: [280, "Description cannot be more than 280 characters."]
 			},
-			commenter: UserSchema
+			commenter: {
+				type: String
+			}
 		}
 	],
 	likes: {
-		type: Number
+		type: Number,
+		default: 0
 	}
 });
 

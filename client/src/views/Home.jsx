@@ -32,8 +32,8 @@ const Home = () => {
 	};
 
 	return (
-		<div className="h-screen max-w-7xl mx-auto px-8 flex flex-col-reverse sm:flex-row sm:gap-4 md:max-xl:px-14 xl:px-16 transition-all ease-in">
-			<Navigation user={currentUser} />
+		<div className="h-screen max-w-[1400px] mx-auto px-2 flex flex-col-reverse sm:flex-row sm:gap-4 md:max-xl:px-16 xl:px-20 transition-all ease-in">
+			<Navigation user={currentUser} logoutUser={logoutUser} />
 			<Feed />
 			<Users />
 		</div>

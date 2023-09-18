@@ -2,16 +2,25 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { auth } from "../firebase";
 
+const initialRegister = {
+	name: "",
+	username: "",
+	email: "",
+	password: "",
+	confirmPassword: ""
+};
+
 const LoginRegForm = ({ btnLabel, cardLabel, linkLabel, link, error, submitFunc }) => {
-	const [email, setEmail] = useState("");
-	const [password, setPassword] = useState("");
+	const [registerForm, setRegisterForm] = useState(initialRegister);
+
+	const handleChange = (e) => {
+		setRegisterForm({ ...registerForm, [e.target.name]: e.target.value });
+	};
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
 
-		submitFunc(auth, email, password);
-		setEmail("");
-		setPassword("");
+		submitFunc(auth, registerForm.email, registerForm.password);
 	};
 
 	return (
@@ -32,24 +41,65 @@ const LoginRegForm = ({ btnLabel, cardLabel, linkLabel, link, error, submitFunc 
 						</p>
 						{error && <p className="text-center text-red-400">{error}</p>}
 						<form onSubmit={handleSubmit} className="form-control">
+							{btnLabel == "Register" && (
+								<>
+									<div>
+										<label className="label text-black dark:text-white">Full Name</label>
+										<input
+											type="text"
+											name="name"
+											className="input input-bordered input-info w-full dark:bg-[#D9D9D9] text-black"
+											value={registerForm.firstName}
+											onChange={(e) => handleChange(e)}
+										/>
+									</div>
+
+									<div>
+										<label className="label text-black dark:text-white">Username</label>
+										<input
+											type="text"
+											name="username"
+											className="input input-bordered input-info w-full dark:bg-[#D9D9D9] text-black"
+											value={registerForm.username}
+											onChange={(e) => handleChange(e)}
+										/>
+									</div>
+								</>
+							)}
 							<div>
 								<label className="label text-black dark:text-white">Email</label>
 								<input
 									type="text"
+									name="email"
 									className="input input-bordered input-info w-full dark:bg-[#D9D9D9] text-black"
-									value={email}
-									onChange={(e) => setEmail(e.target.value)}
+									value={registerForm.email}
+									onChange={(e) => handleChange(e)}
 								/>
 							</div>
 							<div>
 								<label className="label text-black dark:text-white">Password</label>
 								<input
 									type="password"
+									name="password"
 									className="input input-bordered input-info w-full dark:bg-[#D9D9D9] text-black"
-									value={password}
-									onChange={(e) => setPassword(e.target.value)}
+									value={registerForm.password}
+									onChange={(e) => handleChange(e)}
 								/>
 							</div>
+							{btnLabel == "Register" && (
+								<>
+									<div>
+										<label className="label text-black dark:text-white">Confirm Password</label>
+										<input
+											type="password"
+											name="password"
+											className="input input-bordered input-info w-full dark:bg-[#D9D9D9] text-black"
+											value={registerForm.confirmPassword}
+											onChange={(e) => handleChange(e)}
+										/>
+									</div>
+								</>
+							)}
 							<div className="text-end mt-5">
 								<button className="btn bg-[#284B63] text-white shadow-xl active:bg-slate-900">
 									{btnLabel}
