@@ -1,12 +1,11 @@
 import { ArrowSmallRightIcon } from "@heroicons/react/24/solid";
-import { useContext } from "react";
-import { AuthContext } from "../context/AuthContext";
 import CodeEditor from "@uiw/react-textarea-code-editor";
-import { useState } from "react";
+import { addDoc, arrayUnion, collection, doc, serverTimestamp, updateDoc } from "firebase/firestore";
+import { useContext, useState } from "react";
 import { languages } from "../constants";
-import Avatar from "./Avatar";
-import { collection, addDoc, doc, updateDoc, serverTimestamp, arrayUnion } from "firebase/firestore";
+import { AuthContext } from "../context/AuthContext";
 import { db } from "../firebase";
+import Avatar from "./Avatar";
 
 const PostForm = () => {
 	const {

@@ -1,8 +1,8 @@
-import { HomeIcon, UserCircleIcon, MagnifyingGlassIcon, ArrowSmallRightIcon } from "@heroicons/react/24/solid";
+import { ArrowSmallRightIcon, HomeIcon, MagnifyingGlassIcon, UserCircleIcon } from "@heroicons/react/24/solid";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 import Avatar from "../components/Avatar";
 import PostForm from "../components/PostForm";
-import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 
 const Navigation = (props) => {

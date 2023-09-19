@@ -1,8 +1,8 @@
 import CodeEditor from "@uiw/react-textarea-code-editor";
+import { doc, onSnapshot } from "firebase/firestore";
 import { useEffect, useState } from "react";
-import Avatar from "./Avatar";
-import { doc, getDoc, onSnapshot } from "firebase/firestore";
 import { db } from "../firebase";
+import Avatar from "./Avatar";
 
 const PostCard = (props) => {
 	const { code, description, language, posterPath, comments, likes, postId, updateLikeCount } = props;
