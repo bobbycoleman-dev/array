@@ -2,19 +2,21 @@ import { HomeIcon, UserCircleIcon, MagnifyingGlassIcon, ArrowSmallRightIcon } fr
 import { Link } from "react-router-dom";
 import Avatar from "../components/Avatar";
 import PostForm from "../components/PostForm";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 
 const Navigation = (props) => {
-	const { user, logoutUser } = props;
+	const {
+		state: { user }
+	} = useContext(AuthContext);
+	const { logoutUser } = props;
 	return (
 		<div className="w-full min-h-min py-4 shadow-2xl sm:border-x sm:border-info sm:h-full sm:order-first sm:max-lg:w-20 lg:w-96">
 			{/* Modal */}
 			<dialog id="pushModal" className="modal">
 				<div className="modal-box bg-[#284B63]">
-					<form method="dialog">
-						{/* if there is a button in form, it will close the modal */}
-						<button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-					</form>
 					<PostForm />
+					<button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
 				</div>
 			</dialog>
 
@@ -57,8 +59,8 @@ const Navigation = (props) => {
 					<label tabIndex={0} className="flex items-center gap-2 w-full cursor-pointer">
 						<Avatar />
 						<div className="hidden lg:block text-black dark:text-slate-200">
-							<p>Bobby Coleman</p>
-							<p>@username</p>
+							<p>{user?.name}</p>
+							<p>@{user?.username}</p>
 						</div>
 					</label>
 					<ul

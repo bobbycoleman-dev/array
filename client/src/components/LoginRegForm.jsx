@@ -12,15 +12,22 @@ const initialRegister = {
 
 const LoginRegForm = ({ btnLabel, cardLabel, linkLabel, link, error, submitFunc }) => {
 	const [registerForm, setRegisterForm] = useState(initialRegister);
+	const [passwordError, setPasswordError] = useState("");
 
 	const handleChange = (e) => {
 		setRegisterForm({ ...registerForm, [e.target.name]: e.target.value });
+		if (e.target.name == "confirmPassword") {
+			if (e.target.value != registerForm.password) {
+				setPasswordError("Passwords do not match.");
+			} else {
+				setPasswordError("");
+			}
+		}
 	};
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-
-		submitFunc(auth, registerForm.email, registerForm.password);
+		submitFunc(auth, registerForm);
 	};
 
 	return (
@@ -92,11 +99,12 @@ const LoginRegForm = ({ btnLabel, cardLabel, linkLabel, link, error, submitFunc 
 										<label className="label text-black dark:text-white">Confirm Password</label>
 										<input
 											type="password"
-											name="password"
+											name="confirmPassword"
 											className="input input-bordered input-info w-full dark:bg-[#D9D9D9] text-black"
 											value={registerForm.confirmPassword}
 											onChange={(e) => handleChange(e)}
 										/>
+										{passwordError && <p className="text-error">{passwordError}</p>}
 									</div>
 								</>
 							)}

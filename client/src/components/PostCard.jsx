@@ -1,9 +1,19 @@
 import CodeEditor from "@uiw/react-textarea-code-editor";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Avatar from "./Avatar";
+import { doc, getDoc, onSnapshot } from "firebase/firestore";
+import { db } from "../firebase";
 
 const PostCard = (props) => {
-	const { code, description, language } = props;
+	const { code, description, language, posterPath, comments, likes, postId, updateLikeCount } = props;
+	const [poster, setPoster] = useState({});
+
+	useEffect(() => {
+		const unsub = onSnapshot(doc(db, "users", posterPath), (doc) => {
+			setPoster({ ...doc.data(), id: doc.id });
+		});
+		return () => unsub;
+	}, []);
 
 	return (
 		<div className="card cursor-pointer shadow-xl w-full border-2 bg-[#284B63] bg-opacity-25">
@@ -12,7 +22,9 @@ const PostCard = (props) => {
 					<div className="flex w-full gap-4 text-black dark:text-slate-200">
 						<Avatar />
 						<div>
-							<p>Display Name @username</p>
+							<p>
+								{poster.name} @{poster.username}
+							</p>
 							<p>Language: {language}</p>
 						</div>
 					</div>
@@ -28,10 +40,10 @@ const PostCard = (props) => {
 					</div>
 					<div className="flex justify-between text-black dark:text-slate-200">
 						<p>
-							comments <span className="badge badge-primary badge-sm">+99</span>
+							comments <span className="badge badge-primary badge-sm">{comments.length}</span>
 						</p>
-						<p className="text-end">
-							likes <span className="badge badge-primary badge-sm">+200</span>
+						<p className="text-end" onClick={() => updateLikeCount(postId)}>
+							likes <span className="badge badge-primary badge-sm">{likes}</span>
 						</p>
 					</div>
 				</div>

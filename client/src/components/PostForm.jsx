@@ -1,18 +1,50 @@
 import { ArrowSmallRightIcon } from "@heroicons/react/24/solid";
-
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 import CodeEditor from "@uiw/react-textarea-code-editor";
 import { useState } from "react";
 import { languages } from "../constants";
 import Avatar from "./Avatar";
+import { collection, addDoc, doc, updateDoc, serverTimestamp, arrayUnion } from "firebase/firestore";
+import { db } from "../firebase";
 
 const PostForm = () => {
+	const {
+		state: { user }
+	} = useContext(AuthContext);
 	const [code, setCode] = useState("");
 	const [description, setDescription] = useState("");
 	const [language, setLanguage] = useState("");
 	const selected = "Select Language";
 
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
+		const newPost = {
+			code: code,
+			description: description,
+			language: language,
+			likes: 0,
+			comments: [],
+			poster: user.firebaseUid
+		};
+
+		await addDoc(collection(db, "posts"), {
+			code: code,
+			description: description,
+			language: language,
+			likes: 0,
+			comments: {},
+			poster: user.firebaseUid,
+			createdAt: serverTimestamp()
+		});
+		const updateRef = doc(db, "users", user.firebaseUid);
+		await updateDoc(updateRef, {
+			posts: arrayUnion(newPost)
+		});
+
+		setCode("");
+		setDescription("");
+		setLanguage("");
 	};
 
 	return (
@@ -22,11 +54,13 @@ const PostForm = () => {
 					<div className="flex w-full gap-4 text-black dark:text-slate-200">
 						<Avatar />
 						<div>
-							<p>Display Name @username</p>
+							<p>
+								{user?.name} @{user?.username}
+							</p>
 						</div>
 					</div>
 
-					<form onSubmit={handleSubmit} className="form-control space-y-4">
+					<form onSubmit={handleSubmit} className="form-control space-y-4" method="dialog">
 						<CodeEditor
 							className="rounded-xl w-full text-sm shadow-md max-h-60 overflow-y-scroll"
 							value={code}
@@ -43,7 +77,7 @@ const PostForm = () => {
 								name="description"
 								className="textarea textarea-xs bg-white text-black dark:bg-[#161B22] dark:text-slate-200 w-full shadow-md  rounded-xl"
 								onChange={(e) => setDescription(e.target.value)}
-								defaultValue={description}
+								value={description}
 								placeholder="Add a Description"></textarea>
 						</div>
 						<div className="flex justify-between items-center">

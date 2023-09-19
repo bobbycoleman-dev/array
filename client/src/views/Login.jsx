@@ -1,18 +1,17 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import LoginRegForm from "../components/LoginRegForm";
+
 import { useState } from "react";
 
 const Login = () => {
 	const [error, setError] = useState("");
 	const navigate = useNavigate();
 
-	const loginUser = (auth, email, password) => {
-		signInWithEmailAndPassword(auth, email, password)
+	const loginUser = (auth, userData) => {
+		signInWithEmailAndPassword(auth, userData.email, userData.password)
 			.then((userCredential) => {
 				// Signed in
-				const user = userCredential.user;
-				console.log(user);
 				setError("");
 				navigate("/home");
 			})
