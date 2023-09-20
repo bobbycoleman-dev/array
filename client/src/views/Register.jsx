@@ -13,16 +13,15 @@ const Register = () => {
 		createUserWithEmailAndPassword(auth, userData.email, userData.password)
 			.then((userCredential) => {
 				// Signed in
-				const userID = userCredential.uid;
+				const user = userCredential.user;
 				const newUser = {
 					name: userData.name,
 					username: userData.username,
 					email: userData.email,
-					firebaseUID: userID,
+					firebaseUID: user.uid,
 					followers: [],
 					follows: []
 				};
-				console.log("Firebase UID is:", userID, "and type is:", typeof userID);
 				registerUser(newUser)
 					.then((newUserData) => {
 						console.log(newUserData);
