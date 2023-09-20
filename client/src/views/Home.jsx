@@ -7,31 +7,15 @@ import { useNavigate } from "react-router-dom";
 import Feed from "./Feed";
 import Navigation from "./Navigation";
 import Users from "./Users";
-import { doc, getDoc } from "firebase/firestore";
-import { db } from "../firebase";
 
 const Home = () => {
 	const { dispatch } = useContext(AuthContext);
 	const [currentUser, setCurrentUser] = useState({});
 	const navigate = useNavigate();
 
-	const getUser = async (uid) => {
-		const docRef = doc(db, "users", uid);
-		const docSnap = await getDoc(docRef);
-
-		if (docSnap.exists()) {
-			const loggedInUser = docSnap.data();
-			localStorage.setItem("user", JSON.stringify(loggedInUser));
-			dispatch({ type: "LOGIN", payload: loggedInUser });
-		} else {
-			console.log("No such document!");
-		}
-	};
-
 	useEffect(() => {
 		onAuthStateChanged(auth, (user) => {
 			if (user) {
-				getUser(user.uid);
 				setCurrentUser(user);
 			} else {
 				console.log("user is logged out");

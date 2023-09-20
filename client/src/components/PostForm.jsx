@@ -1,10 +1,9 @@
 import { ArrowSmallRightIcon } from "@heroicons/react/24/solid";
 import CodeEditor from "@uiw/react-textarea-code-editor";
-import { addDoc, arrayUnion, collection, doc, serverTimestamp, updateDoc } from "firebase/firestore";
 import { useContext, useState } from "react";
 import { languages } from "../constants";
 import { AuthContext } from "../context/AuthContext";
-import { db } from "../firebase";
+
 import Avatar from "./Avatar";
 
 const PostForm = () => {
@@ -18,28 +17,6 @@ const PostForm = () => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		const newPost = {
-			code: code,
-			description: description,
-			language: language,
-			likes: 0,
-			comments: [],
-			poster: user.firebaseUid
-		};
-
-		await addDoc(collection(db, "posts"), {
-			code: code,
-			description: description,
-			language: language,
-			likes: 0,
-			comments: {},
-			poster: user.firebaseUid,
-			createdAt: serverTimestamp()
-		});
-		const updateRef = doc(db, "users", user.firebaseUid);
-		await updateDoc(updateRef, {
-			posts: arrayUnion(newPost)
-		});
 
 		setCode("");
 		setDescription("");

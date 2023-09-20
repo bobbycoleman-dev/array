@@ -3,29 +3,11 @@ import React, { useEffect, useState } from "react";
 import Avatar from "../components/Avatar";
 import PostCard from "../components/PostCard";
 import PostForm from "../components/PostForm";
-import { db } from "../firebase";
 
 const Feed = () => {
 	const [posts, setPosts] = useState([]);
 
-	useEffect(() => {
-		const q = query(collection(db, "posts"), orderBy("createdAt", "desc"));
-		const unsubscribe = onSnapshot(q, (querySnapshot) => {
-			let postsArr = [];
-			querySnapshot.forEach((doc) => {
-				postsArr.push({ ...doc.data(), id: doc.id });
-			});
-			setPosts(postsArr);
-		});
-		return () => unsubscribe;
-	}, []);
-
-	const updateLikeCount = async (postId) => {
-		const docRef = doc(db, "posts", postId);
-		await updateDoc(docRef, {
-			likes: increment(1)
-		});
-	};
+	useEffect(() => {}, []);
 
 	return (
 		<div className="w-full h-full overflow-auto py-4 px-4 shadow-2xl space-y-4 sm:border-x sm:border-info  sm:order-2 ">
@@ -45,7 +27,6 @@ const Feed = () => {
 						comments={post.comments}
 						likes={post.likes}
 						postId={post.id}
-						updateLikeCount={updateLikeCount}
 					/>
 				</section>
 			))}

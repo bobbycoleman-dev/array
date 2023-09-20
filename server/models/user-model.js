@@ -1,6 +1,5 @@
 import { model, Schema } from "mongoose";
 import mongooseUniqueValidator from "mongoose-unique-validator";
-import { PostSchema } from "./post.model";
 
 const EMAIL_REGEX = new RegExp(/^([\w-\.]+@([\w-]+\.)+[\w-]+)?$/);
 
@@ -26,9 +25,20 @@ const UserSchema = new Schema(
 			},
 			unique: true
 		},
-		follows: [UserSchema],
-		followers: [UserSchema],
-		posts: [PostSchema],
+		follows: [
+			{
+				username: {
+					type: String
+				}
+			}
+		],
+		followers: [
+			{
+				username: {
+					type: String
+				}
+			}
+		],
 		firebaseUID: {
 			type: String
 		}
@@ -40,4 +50,4 @@ UserSchema.plugin(mongooseUniqueValidator);
 
 const User = model("User", UserSchema);
 
-module.exports = User;
+export default User;

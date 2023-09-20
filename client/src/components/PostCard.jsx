@@ -1,19 +1,12 @@
 import CodeEditor from "@uiw/react-textarea-code-editor";
-import { doc, onSnapshot } from "firebase/firestore";
 import { useEffect, useState } from "react";
-import { db } from "../firebase";
 import Avatar from "./Avatar";
 
 const PostCard = (props) => {
 	const { code, description, language, posterPath, comments, likes, postId, updateLikeCount } = props;
 	const [poster, setPoster] = useState({});
 
-	useEffect(() => {
-		const unsub = onSnapshot(doc(db, "users", posterPath), (doc) => {
-			setPoster({ ...doc.data(), id: doc.id });
-		});
-		return () => unsub;
-	}, []);
+	useEffect(() => {}, []);
 
 	return (
 		<div className="card cursor-pointer shadow-xl w-full border-2 bg-[#284B63] bg-opacity-25">
