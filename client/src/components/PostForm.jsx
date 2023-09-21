@@ -29,7 +29,6 @@ const PostForm = ({ updateDom }) => {
 
 		createPost(newPost)
 			.then((post) => {
-				console.log(post);
 				updateDom(post);
 			})
 			.catch((err) => console.log(err));

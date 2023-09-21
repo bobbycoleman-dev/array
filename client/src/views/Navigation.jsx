@@ -6,10 +6,7 @@ import PostForm from "../components/PostForm";
 import { AuthContext } from "../context/AuthContext";
 
 const Navigation = (props) => {
-	const {
-		state: { user }
-	} = useContext(AuthContext);
-	const { logoutUser } = props;
+	const { user, logoutUser } = props;
 	return (
 		<div className="w-full min-h-min py-4 shadow-2xl sm:border-x sm:border-info sm:h-full sm:order-first sm:max-lg:w-20 lg:w-96">
 			{/* Modal */}
@@ -45,7 +42,7 @@ const Navigation = (props) => {
 						</li>
 						<li className="lg:w-full">
 							<Link
-								to="/profile"
+								to={`/profile/${user._id}`}
 								className="rounded-full cursor-pointer flex gap-4 items-center p-0 lg:w-full lg:hover:bg-success lg:p-4  transition-colors ease-in-out duration-400">
 								<UserCircleIcon className="h-10 text-black dark:text-white hover:text-success lg:hover:text-black lg:hover:dark:text-white" />
 								<p className="hidden text-2xl text-black dark:text-white lg:block">Profile</p>

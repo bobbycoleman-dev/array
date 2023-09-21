@@ -16,11 +16,6 @@ async function loginUser(req, res) {
 		console.log(email);
 		const user = await User.findOne({ email });
 
-		if (!user) {
-			console.log("Email incorrect.");
-			return res.status(400).json({ errors });
-		}
-
 		res.status(200).json(user);
 	} catch (err) {
 		console.log(err);

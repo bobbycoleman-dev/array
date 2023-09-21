@@ -2,19 +2,26 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import LoginRegForm from "../components/LoginRegForm";
 import { useState } from "react";
+import { loginUser } from "../services/user-service";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 
 const Login = () => {
 	const [error, setError] = useState("");
 	const navigate = useNavigate();
+	const { dispatch } = useContext(AuthContext);
 
-	const loginUser = (auth, userData) => {
-		console.log(userData);
+	const userLogin = (auth, userData) => {
 		signInWithEmailAndPassword(auth, userData.email, userData.password)
 			.then((userCredential) => {
-				const loggedInUser = userCredential.user;
-				console.log(loggedInUser);
+				loginUser({ email: userData.email })
+					.then((user) => {
+						dispatch({ type: "LOGIN", payload: user });
+						localStorage.setItem("user", JSON.stringify(user));
+						navigate("/home");
+					})
+					.catch((err) => console.log(err));
 				setError("");
-				navigate("/home");
 			})
 			.catch((error) => {
 				const errorCode = error.code;
@@ -32,7 +39,7 @@ const Login = () => {
 			linkLabel={"Need an Account? Register"}
 			link={"register"}
 			error={error}
-			submitFunc={loginUser}
+			submitFunc={userLogin}
 		/>
 	);
 };

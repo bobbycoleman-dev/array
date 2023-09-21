@@ -13,8 +13,18 @@ const Feed = () => {
 			.catch((err) => console.log(err));
 	}, []);
 
-	const updateDom = (newPost) => {
+	const addPostToTop = (newPost) => {
 		setPosts([newPost, ...posts]);
+	};
+
+	const updateLikedPost = (newPost) => {
+		const newPosts = posts.map((post) => {
+			if (post._id === newPost._id) {
+				return newPost;
+			}
+			return post;
+		});
+		setPosts(newPosts);
 	};
 
 	return (
@@ -23,11 +33,11 @@ const Feed = () => {
 				<Avatar />
 			</div>
 			<h2 className="text-2xl font-bold text-black dark:text-slate-200">Home</h2>
-			<PostForm updateDom={updateDom} />
+			<PostForm updateDom={addPostToTop} />
 
 			{posts.map((post, idx) => (
 				<section key={idx}>
-					<PostCard post={post} />
+					<PostCard post={post} updateLikedPost={updateLikedPost} />
 				</section>
 			))}
 		</div>
