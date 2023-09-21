@@ -21,9 +21,13 @@ postRouter
 postRouter
   .route('/:id')
   .get(getOnePost)
-  .get(getAllUserPosts)
   .put(updateOnePost)
   .patch(updateOnePost)
   .delete(deleteOnePost);
+
+// prettier-ignore
+postRouter
+  .route('/users/:userId')
+  .get(getAllUserPosts)
 
 export default postRouter;

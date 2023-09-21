@@ -3,10 +3,12 @@ import CodeEditor from "@uiw/react-textarea-code-editor";
 import { useContext, useState } from "react";
 import { languages } from "../constants";
 import { AuthContext } from "../context/AuthContext";
-
 import Avatar from "./Avatar";
+import { createPost } from "../services/post-service";
+import { useNavigate } from "react-router-dom";
 
-const PostForm = () => {
+const PostForm = ({ updateDom }) => {
+	const navigate = useNavigate();
 	const {
 		state: { user }
 	} = useContext(AuthContext);
@@ -18,6 +20,19 @@ const PostForm = () => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
+		const newPost = {
+			code: code,
+			description: description,
+			language: language,
+			poster: user._id
+		};
+
+		createPost(newPost)
+			.then((post) => {
+				console.log(post);
+				updateDom(post);
+			})
+			.catch((err) => console.log(err));
 		setCode("");
 		setDescription("");
 		setLanguage("");

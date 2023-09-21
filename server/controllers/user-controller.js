@@ -38,4 +38,16 @@ async function getAllUsers(req, res) {
 	}
 }
 
-export { registerUser, loginUser, getAllUsers };
+async function getOneUser(req, res) {
+	const { id } = req.params;
+
+	try {
+		const oneUser = await User.findById(id);
+		res.status(200).json(oneUser);
+	} catch (error) {
+		console.log(error);
+		res.status(400).json(error);
+	}
+}
+
+export { registerUser, loginUser, getAllUsers, getOneUser };

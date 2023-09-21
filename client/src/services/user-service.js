@@ -24,4 +24,24 @@ async function loginUser(loginForm) {
 	}
 }
 
-export { registerUser, loginUser };
+async function getOneUser(userId) {
+	try {
+		const response = await http.get(`/users/${userId}`);
+		return response.data;
+	} catch (error) {
+		console.log(error);
+		throw error;
+	}
+}
+
+async function getAllUsers() {
+	try {
+		const response = await http.get("/users");
+		return response.data;
+	} catch (error) {
+		console.log(error);
+		throw error;
+	}
+}
+
+export { registerUser, loginUser, getOneUser, getAllUsers };

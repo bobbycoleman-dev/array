@@ -12,7 +12,7 @@ async function createPost(req, res) {
 
 async function getAllPosts(_, res) {
 	try {
-		const allPosts = await Post.find({});
+		const allPosts = await Post.find().sort({ createdAt: -1 });
 		res.status(200).json(allPosts);
 	} catch (error) {
 		console.log(error);

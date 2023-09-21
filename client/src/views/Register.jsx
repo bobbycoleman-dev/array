@@ -25,9 +25,7 @@ const Register = () => {
 				registerUser(newUser)
 					.then((newUserData) => {
 						console.log(newUserData);
-						dispatch({ type: "LOGIN", payload: newUserData });
-						localStorage.setItem("user", JSON.stringify(newUserData));
-						navigate("/home");
+						navigate("/login");
 					})
 					.catch((err) => console.log(err));
 			})

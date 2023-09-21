@@ -16,7 +16,9 @@ const Navigation = (props) => {
 			<dialog id="pushModal" className="modal">
 				<div className="modal-box bg-[#284B63]">
 					<PostForm />
-					<button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+					<form method="dialog">
+						<button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+					</form>
 				</div>
 			</dialog>
 
@@ -33,13 +35,21 @@ const Navigation = (props) => {
 						[A]
 					</Link>
 					<ul className="w-full flex justify-between items-center px-12 sm:flex-col sm:space-y-4 sm:justify-start sm:p-0 lg:items-start md:p-0">
-						<li className="rounded-full cursor-pointer p-0 flex gap-4 items-center lg:w-full lg:hover:bg-success lg:p-4  transition-colors ease-in-out duration-400">
-							<HomeIcon className="h-10 text-black dark:text-white hover:text-success lg:hover:text-black lg:hover:dark:text-white " />
-							<p className="hidden text-2xl text-black dark:text-white lg:block">Home</p>
+						<li className="lg:w-full">
+							<Link
+								to="/home"
+								className="rounded-full cursor-pointer p-0 flex gap-4 items-center lg:w-full lg:hover:bg-success lg:p-4  transition-colors ease-in-out duration-400">
+								<HomeIcon className="h-10 text-black dark:text-white hover:text-success lg:hover:text-black lg:hover:dark:text-white " />
+								<p className="hidden text-2xl text-black dark:text-white lg:block">Home</p>
+							</Link>
 						</li>
-						<li className="rounded-full cursor-pointer flex gap-4 items-center p-0 lg:w-full lg:hover:bg-success lg:p-4  transition-colors ease-in-out duration-400">
-							<UserCircleIcon className="h-10 text-black dark:text-white hover:text-success lg:hover:text-black lg:hover:dark:text-white" />
-							<p className="hidden text-2xl text-black dark:text-white lg:block">Profile</p>
+						<li className="lg:w-full">
+							<Link
+								to="/profile"
+								className="rounded-full cursor-pointer flex gap-4 items-center p-0 lg:w-full lg:hover:bg-success lg:p-4  transition-colors ease-in-out duration-400">
+								<UserCircleIcon className="h-10 text-black dark:text-white hover:text-success lg:hover:text-black lg:hover:dark:text-white" />
+								<p className="hidden text-2xl text-black dark:text-white lg:block">Profile</p>
+							</Link>
 						</li>
 						<li className="rounded-full cursor-pointer flex gap-4 items-center p-0 lg:w-full lg:hover:bg-success lg:p-4  transition-colors ease-in-out duration-400">
 							<MagnifyingGlassIcon className="h-10 text-black dark:text-white hover:text-success lg:hover:text-black lg:hover:dark:text-white" />

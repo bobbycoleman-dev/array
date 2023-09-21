@@ -1,7 +1,6 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import LoginRegForm from "../components/LoginRegForm";
-
 import { useState } from "react";
 
 const Login = () => {
@@ -15,13 +14,7 @@ const Login = () => {
 				const loggedInUser = userCredential.user;
 				console.log(loggedInUser);
 				setError("");
-				loginUser(userData)
-					.then((user) => {
-						dispatch({ type: "LOGIN", payload: user });
-						localStorage.setItem("user", JSON.stringify(user));
-						navigate("/home");
-					})
-					.catch((err) => console.log(err));
+				navigate("/home");
 			})
 			.catch((error) => {
 				const errorCode = error.code;
