@@ -43,6 +43,15 @@ async function updateOneUser(userId, user) {
 	}
 }
 
+async function getOneUserByUsername(username) {
+	try {
+		const response = await http.get(`/users/${username}`);
+		return response.data;
+	} catch (error) {
+		throw error;
+	}
+}
+
 async function getAllUsers() {
 	try {
 		const response = await http.get("/users");
@@ -53,4 +62,4 @@ async function getAllUsers() {
 	}
 }
 
-export { registerUser, loginUser, getOneUser, getAllUsers, updateOneUser };
+export { registerUser, loginUser, getOneUser, getAllUsers, updateOneUser, getOneUserByUsername };

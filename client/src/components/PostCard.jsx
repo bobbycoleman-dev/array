@@ -48,7 +48,7 @@ const PostCard = (props) => {
 						</div>
 					</section>
 					<div className="flex justify-between text-black dark:text-slate-200 mt-4">
-						<p>
+						<p onClick={() => navigate(`/post/${post._id}`)}>
 							comments <span className="badge badge-primary badge-sm">{post.comments.length}</span>
 						</p>
 						<p className="text-end" onClick={increaseLikes}>

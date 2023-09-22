@@ -1,14 +1,14 @@
 import { ArrowSmallLeftIcon } from "@heroicons/react/24/solid";
-import { useEffect, useState, useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import profileBanner from "../../public/profileBanner.png";
 import Avatar from "../components/Avatar";
-import { AuthContext } from "../context/AuthContext";
-import { getAllUserPosts } from "../services/post-service";
 import PostCard from "../components/PostCard";
-import { getOneUser, updateOneUser } from "../services/user-service";
 import ProfileInfo from "../components/ProfileInfo";
 import ProfileInfoForm from "../components/ProfileInfoForm";
+import { AuthContext } from "../context/AuthContext";
+import { getAllUserPosts } from "../services/post-service";
+import { getOneUser, updateOneUser } from "../services/user-service";
 
 const Profile = ({ user }) => {
 	const navigate = useNavigate();
@@ -72,9 +72,18 @@ const Profile = ({ user }) => {
 				console.log(newUser);
 				setCurrentUser({
 					...currentUser,
-					name: newUser.name,
-					username: newUser.username,
-					description: newUser.description
+					name: updatedUser.name,
+					username: updatedUser.username,
+					description: updatedUser.description
+				});
+				dispatch({
+					type: "LOGIN",
+					payload: {
+						...currentUser,
+						name: updatedUser.name,
+						username: updatedUser.username,
+						description: updatedUser.description
+					}
 				});
 				setIsEditing(false);
 			})
@@ -90,7 +99,7 @@ const Profile = ({ user }) => {
 				dispatch({ type: "LOGIN", payload: newUser });
 				updateOneUser(currentUser._id, updatedFollowing)
 					.then((newUser) => {
-						setCurrentUser({ ...currentUser, followers: [newUser.followers] });
+						setCurrentUser({ ...currentUser, followers: [...currentUser.followers, follower.username] });
 						setIsFollowing(true);
 					})
 					.catch((err) => console.log(err));
@@ -140,10 +149,10 @@ const Profile = ({ user }) => {
 							<ProfileInfo currentUser={currentUser} />
 						)}
 						<div className="flex gap-2 mt-3 text-slate-400">
-							<p>
+							<p className="cursor-pointer hover:underline">
 								<span className="text-primary">{currentUser.follows.length}</span> Following
 							</p>
-							<p>
+							<p className="cursor-pointer hover:underline">
 								<span className="text-primary">{currentUser.followers.length}</span> Followers
 							</p>
 						</div>

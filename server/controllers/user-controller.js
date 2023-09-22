@@ -45,6 +45,17 @@ async function getOneUser(req, res) {
 	}
 }
 
+async function getOneUserByUsername(req, res) {
+	const { username } = req.params;
+	try {
+		const oneUser = await User.findOne({ username });
+		res.status(200).json(oneUser);
+	} catch (error) {
+		console.log(error);
+		res.status(400).json(error);
+	}
+}
+
 async function updateOneUser(req, res) {
 	const { id } = req.params;
 
@@ -58,4 +69,4 @@ async function updateOneUser(req, res) {
 	}
 }
 
-export { registerUser, loginUser, getAllUsers, getOneUser, updateOneUser };
+export { registerUser, loginUser, getAllUsers, getOneUser, updateOneUser, getOneUserByUsername };

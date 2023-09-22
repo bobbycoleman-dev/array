@@ -30,12 +30,15 @@ const Post = ({ id }) => {
 
 	const addComment = (newComment) => {
 		const updatedPost = { ...post, comments: [newComment, ...post.comments] };
-		console.log(updatedPost);
 		updateOnePost(post._id, updatedPost)
 			.then((newPost) => {
 				setPost(newPost);
 			})
 			.catch((err) => console.log(err));
+	};
+
+	const updateLikedPost = (newPost) => {
+		setPost({ ...post, newPost });
 	};
 
 	return (
@@ -48,7 +51,7 @@ const Post = ({ id }) => {
 				<h2 className="text-2xl font-bold text-black dark:text-slate-200">Post</h2>
 			</div>
 
-			{loaded && <PostCard post={post} />}
+			{loaded && <PostCard post={post} updateLikedPost={updateLikedPost} />}
 			{loaded && <CommentForm poster={poster} addComment={addComment} />}
 			{loaded && <CommentList comments={post.comments} />}
 		</div>
