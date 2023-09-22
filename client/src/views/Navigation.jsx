@@ -1,24 +1,11 @@
 import { ArrowSmallRightIcon, HomeIcon, MagnifyingGlassIcon, UserCircleIcon } from "@heroicons/react/24/solid";
-import { useContext } from "react";
 import { Link } from "react-router-dom";
 import Avatar from "../components/Avatar";
-import PostForm from "../components/PostForm";
-import { AuthContext } from "../context/AuthContext";
 
 const Navigation = (props) => {
 	const { user, logoutUser } = props;
 	return (
 		<div className="w-full min-h-min py-4 shadow-2xl sm:border-x sm:border-info sm:h-full sm:order-first sm:max-lg:w-20 lg:w-96">
-			{/* Modal */}
-			<dialog id="pushModal" className="modal">
-				<div className="modal-box bg-[#284B63]">
-					<PostForm />
-					<form method="dialog">
-						<button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-					</form>
-				</div>
-			</dialog>
-
 			<div className="h-14 sm:flex sm:flex-col sm:h-full sm:justify-between">
 				<div>
 					<Link
@@ -48,9 +35,13 @@ const Navigation = (props) => {
 								<p className="hidden text-2xl text-black dark:text-white lg:block">Profile</p>
 							</Link>
 						</li>
-						<li className="rounded-full cursor-pointer flex gap-4 items-center p-0 lg:w-full lg:hover:bg-success lg:p-4  transition-colors ease-in-out duration-400">
-							<MagnifyingGlassIcon className="h-10 text-black dark:text-white hover:text-success lg:hover:text-black lg:hover:dark:text-white" />
-							<p className="hidden text-2xl text-black dark:text-white lg:block">.filter()</p>
+						<li className="lg:w-full">
+							<Link
+								to="/filter"
+								className="rounded-full cursor-pointer flex gap-4 items-center p-0 lg:w-full lg:hover:bg-success lg:p-4  transition-colors ease-in-out duration-400">
+								<MagnifyingGlassIcon className="h-10 text-black dark:text-white hover:text-success lg:hover:text-black lg:hover:dark:text-white" />
+								<p className="hidden text-2xl text-black dark:text-white lg:block">.filter()</p>
+							</Link>
 						</li>
 					</ul>
 					<div className="text-center mt-4 lg:block">

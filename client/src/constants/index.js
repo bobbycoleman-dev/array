@@ -1,6 +1,30 @@
 import { refractor } from "refractor/lib/core.js";
+const bigLanguageList = refractor.listLanguages().sort();
 
-export const languages = refractor.listLanguages().sort();
+export const languages = [
+	{ title: "JavaScript", md: "js" },
+	{ title: "Python", md: "py" },
+	{ title: "Go", md: "go" },
+	{ title: "Java", md: "java" },
+	{ title: "Kotlin", md: "kt" },
+	{ title: "PHP", md: "php" },
+	{ title: "C#", md: "cs" },
+	{ title: "Swift", md: "swift" },
+	{ title: "R", md: "r" },
+	{ title: "Ruby", md: "ruby" },
+	{ title: "JSON", md: "json" },
+	{ title: "C", md: "c" },
+	{ title: "C++", md: "cpp" },
+	{ title: "TypeScript", md: "ts" },
+	{ title: "Scala", md: "scala" },
+	{ title: "SQL", md: "sql" },
+	{ title: "HTML", md: "html" },
+	{ title: "CSS", md: "css" },
+	{ title: "Rust", md: "rust" },
+	{ title: "React", md: "jsx" },
+	{ title: "Shell", md: "bash" },
+	{ title: "Perl", md: "perl" }
+].sort((a, b) => (a.title > b.title ? 1 : -1));
 
 export const mockData = [
 	{

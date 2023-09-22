@@ -27,18 +27,19 @@ const UserSchema = new Schema(
 		},
 		follows: [
 			{
-				username: {
-					type: String
-				}
+				type: String
 			}
 		],
 		followers: [
 			{
-				username: {
-					type: String
-				}
+				type: String
 			}
 		],
+		description: {
+			type: String,
+			maxlength: [280, "Description must be less than 280 characters."],
+			default: ""
+		},
 		firebaseUID: {
 			type: String
 		}

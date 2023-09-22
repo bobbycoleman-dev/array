@@ -32,13 +32,13 @@ const PostCard = (props) => {
 								<p>
 									{poster.name} @{poster.username}
 								</p>
-								<p>Language: {post.language}</p>
+								<p>Language: {post.languageTitle}</p>
 							</div>
 						</div>
 						<CodeEditor
 							className="rounded-xl w-full text-sm shadow-md"
 							value={post.code}
-							language={post.language}
+							language={post.languageMd}
 							padding={20}
 							disabled
 							onClick={() => navigate(`/post/${post._id}`)}

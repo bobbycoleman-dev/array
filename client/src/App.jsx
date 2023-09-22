@@ -21,8 +21,10 @@ function App() {
 				<Route path="/register" element={<Register />} />
 				<Route path="/login" element={<Login />} />
 				<Route path="/home" element={<Home location={"feed"} />} />
+				<Route path="/filter" element={<Home location={"filter"} />} />
 				<Route path="/post/:id" element={<Home location={"post"} />} />
 				<Route path="/profile/:id" element={<Home location={"profile"} />} />
+				<Route path="/user/:id" element={<Home location={"user"} />} />
 			</Routes>
 		</>
 	);

@@ -2,9 +2,12 @@ import { model, Schema } from "mongoose";
 
 const PostSchema = new Schema(
 	{
-		language: {
+		languageMd: {
 			type: String,
 			required: [true, "Please select a language"]
+		},
+		languageTitle: {
+			type: String
 		},
 		code: {
 			type: String,

@@ -3,19 +3,33 @@ import CodeEditor from "@uiw/react-textarea-code-editor";
 import { useContext, useState } from "react";
 import { languages } from "../constants";
 import { AuthContext } from "../context/AuthContext";
-import Avatar from "./Avatar";
 import { createPost } from "../services/post-service";
-import { useNavigate } from "react-router-dom";
+import Avatar from "./Avatar";
+
+const style = {
+	charCount: `text-xs text-black dark:text-slate-200`,
+	charCountOver: `text-xs text-orange-500`
+};
 
 const PostForm = ({ updateDom }) => {
-	const navigate = useNavigate();
 	const {
 		state: { user }
 	} = useContext(AuthContext);
 	const [code, setCode] = useState("");
 	const [description, setDescription] = useState("");
-	const [language, setLanguage] = useState("");
+	const [languageMd, setLanguageMd] = useState("");
+	const [languageTitle, setLanguageTitle] = useState("");
 	const selected = "Select Language";
+
+	const handleSelect = (e) => {
+		for (const obj of languages) {
+			if (e.target.value == obj.title) {
+				setLanguageMd(obj.md);
+				setLanguageTitle(obj.title);
+				return;
+			}
+		}
+	};
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -23,7 +37,8 @@ const PostForm = ({ updateDom }) => {
 		const newPost = {
 			code: code,
 			description: description,
-			language: language,
+			languageMd: languageMd,
+			languageTitle: languageTitle,
 			poster: user._id
 		};
 
@@ -34,7 +49,8 @@ const PostForm = ({ updateDom }) => {
 			.catch((err) => console.log(err));
 		setCode("");
 		setDescription("");
-		setLanguage("");
+		setLanguageMd("");
+		setLanguageTitle("");
 	};
 
 	return (
@@ -54,7 +70,7 @@ const PostForm = ({ updateDom }) => {
 						<CodeEditor
 							className="rounded-xl w-full text-sm shadow-md max-h-60 overflow-y-scroll"
 							value={code}
-							language={language}
+							language={languageMd}
 							padding={20}
 							onChange={(e) => setCode(e.target.value)}
 							placeholder="Enter Code"
@@ -69,6 +85,9 @@ const PostForm = ({ updateDom }) => {
 								onChange={(e) => setDescription(e.target.value)}
 								value={description}
 								placeholder="Add a Description"></textarea>
+							<p className={description.length < 280 ? style.charCount : style.charCountOver}>
+								{description.length}/280
+							</p>
 						</div>
 						<div className="flex justify-between items-center">
 							<select
@@ -76,13 +95,13 @@ const PostForm = ({ updateDom }) => {
 								id="language"
 								className="select select-sm rounded-full w-40 bg-white text-black dark:bg-[#161B22] dark:text-slate-200"
 								defaultValue={selected}
-								onChange={(e) => setLanguage(e.target.value)}>
+								onChange={(e) => handleSelect(e)}>
 								<option disabled value={selected}>
 									Select Language
 								</option>
 								{languages.map((lang, idx) => (
-									<option key={idx} value={lang}>
-										{lang}
+									<option key={idx} value={lang.title}>
+										{lang.title}
 									</option>
 								))}
 							</select>

@@ -1,9 +1,8 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import LoginRegForm from "../components/LoginRegForm";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { loginUser } from "../services/user-service";
-import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 
 const Login = () => {

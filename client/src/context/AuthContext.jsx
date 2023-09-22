@@ -25,7 +25,7 @@ function AuthProvider({ children }) {
 		if (user) {
 			dispatch({ type: "LOGIN", payload: user });
 		}
-	}, [state.user?.firebaseUid]);
+	}, [state.user?.id]);
 
 	return <AuthContext.Provider value={{ state, dispatch }}>{children}</AuthContext.Provider>;
 }

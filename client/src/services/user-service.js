@@ -34,6 +34,15 @@ async function getOneUser(userId) {
 	}
 }
 
+async function updateOneUser(userId, user) {
+	try {
+		const response = await http.patch(`/users/${userId}`, user);
+		return response.data;
+	} catch (error) {
+		throw error;
+	}
+}
+
 async function getAllUsers() {
 	try {
 		const response = await http.get("/users");
@@ -44,4 +53,4 @@ async function getAllUsers() {
 	}
 }
 
-export { registerUser, loginUser, getOneUser, getAllUsers };
+export { registerUser, loginUser, getOneUser, getAllUsers, updateOneUser };

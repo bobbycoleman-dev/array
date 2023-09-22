@@ -9,6 +9,9 @@ import Navigation from "./Navigation";
 import Users from "./Users";
 import Post from "./Post";
 import Profile from "./Profile";
+import Filter from "./Filter";
+import PostFormModal from "../components/PostFormModal";
+import { getOneUser } from "../services/user-service";
 
 const Home = ({ location }) => {
 	const {
@@ -21,21 +24,30 @@ const Home = ({ location }) => {
 
 	useEffect(() => {
 		const getUser = JSON.parse(localStorage.getItem("user"));
-		setCurrentUser(getUser);
+		getOneUser(getUser._id)
+			.then((user) => {
+				localStorage.setItem("user", JSON.stringify(user));
+				setCurrentUser(user);
+			})
+			.catch((err) => console.log(err));
 		// onAuthStateChanged(auth, (user) => {
 		// 	if (user) {
 		// 	} else {
 		// 		navigate("/");
 		// 	}
 		// });
-	}, []);
+	}, [user]);
 
 	const renderComponent = () => {
 		switch (location) {
 			case "profile":
 				return <Profile user={currentUser} />;
+			case "user":
+				return <Profile user={id} />;
 			case "post":
 				return <Post id={id} />;
+			case "filter":
+				return <Filter />;
 			default:
 				return <Feed />;
 		}
@@ -56,6 +68,7 @@ const Home = ({ location }) => {
 			<Navigation user={currentUser} logoutUser={logoutUser} />
 			{renderComponent()}
 			<Users />
+			<PostFormModal />
 		</div>
 	);
 };

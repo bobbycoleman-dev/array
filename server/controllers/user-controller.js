@@ -45,4 +45,17 @@ async function getOneUser(req, res) {
 	}
 }
 
-export { registerUser, loginUser, getAllUsers, getOneUser };
+async function updateOneUser(req, res) {
+	const { id } = req.params;
+
+	try {
+		const updatedUser = await User.findByIdAndUpdate(id, req.body);
+		res.status(200).json(updatedUser);
+		console.log(updatedUser);
+	} catch (error) {
+		console.log(error);
+		res.status(400).json(error);
+	}
+}
+
+export { registerUser, loginUser, getAllUsers, getOneUser, updateOneUser };
